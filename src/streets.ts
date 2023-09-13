@@ -3,9 +3,12 @@ import type { Feature, FeatureCollection, GeoJsonObject, GeoJsonProperties, Geom
 import L, { Point, type Coords } from 'leaflet';
 const streetsRes = fetch("http://chidatarepo.tessa.ooo/chicagostreets.geo.json");
 let streetsRaw; 
+let allStreets;
 streetsRes.then(async (res) => {
     if(res.status == 200) streetsRaw = await res.json();
-})
+}).then(() => {
+    allStreets = streetsRaw as CHIFeatureCollection
+});
 interface CHIFeature<G extends Geometry | null = Geometry, P = GeoJsonProperties> extends Feature {
     geometry: G,
     properties: P & {
@@ -20,7 +23,7 @@ interface CHIFeatureCollection<G extends Geometry | null = Geometry, P = GeoJson
     features: Array<CHIFeature<G, P>>;
 }
 
-const allStreets: CHIFeatureCollection = streetsRaw as CHIFeatureCollection;
+
 
 
 export const listStreets = (n: number) => {
@@ -65,7 +68,7 @@ export const getStreetsLength = (streets: FeatureCollection) => {
     return totalLength * 0.00062137;
 }
 export const streetsInit = () => {
-    console.log("Total Street Length: " + getStreetsLength(allStreets));
+    // console.log("Total Street Length: " + getStreetsLength(allStreets));
 }
 // export const distance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
 //     const R = 6371000
