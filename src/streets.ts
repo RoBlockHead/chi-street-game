@@ -1,7 +1,11 @@
 import type { Feature, FeatureCollection, GeoJsonObject, GeoJsonProperties, Geometry, MultiLineString } from 'geojson';
-import streetsRaw from './chicagostreets.geo.json';
+// import streetsRaw from './chicagostreets.geo.json';
 import L, { Point, type Coords } from 'leaflet';
-
+const streetsRes = fetch("http://chidatarepo.tessa.ooo/chicagostreets.geo.json");
+let streetsRaw; 
+streetsRes.then(async (res) => {
+    if(res.status == 200) streetsRaw = await res.json();
+})
 interface CHIFeature<G extends Geometry | null = Geometry, P = GeoJsonProperties> extends Feature {
     geometry: G,
     properties: P & {
