@@ -1,7 +1,7 @@
 import type { Feature, FeatureCollection, GeoJsonObject, GeoJsonProperties, Geometry, MultiLineString } from 'geojson';
 // import streetsRaw from './chicagostreets.geo.json';
 import L, { Point, type Coords } from 'leaflet';
-const streetsRes = fetch("http://chidatarepo.tessa.ooo/streetsmin.geo.json");
+const streetsRes = fetch("https://chidatarepo.tessa.ooo/streetsmin.geo.json");
 let streetsRaw; 
 let allStreets;
 streetsRes.then(async (res) => {
