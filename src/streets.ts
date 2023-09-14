@@ -1,7 +1,7 @@
 import type { Feature, FeatureCollection, GeoJsonObject, GeoJsonProperties, Geometry, MultiLineString } from 'geojson';
 // import streetsRaw from './chicagostreets.geo.json';
 import L, { Point, type Coords } from 'leaflet';
-const streetsRes = fetch("http://chidatarepo.tessa.ooo/chicagostreets.geo.json");
+const streetsRes = fetch("http://chidatarepo.tessa.ooo/streetsmin.geo.json");
 let streetsRaw; 
 let allStreets;
 streetsRes.then(async (res) => {
@@ -12,9 +12,16 @@ streetsRes.then(async (res) => {
 interface CHIFeature<G extends Geometry | null = Geometry, P = GeoJsonProperties> extends Feature {
     geometry: G,
     properties: P & {
-        ewns_dir: "E" | "W" | "N" | "S"
         street_nam: string,
         street_typ: string,
+        tiered: "Y" | "N",
+        suf_dir?: string,
+        ewns?: string,
+        dir_travel?: "F" | "T",
+        ewns_coord?: string,
+        class: string,
+        length: string,
+        shape_len: string
     }
 }
 
@@ -22,9 +29,6 @@ interface CHIFeatureCollection<G extends Geometry | null = Geometry, P = GeoJson
     type: 'FeatureCollection';
     features: Array<CHIFeature<G, P>>;
 }
-
-
-
 
 export const listStreets = (n: number) => {
     let skip = 0;
