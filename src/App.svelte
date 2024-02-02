@@ -13,8 +13,8 @@
   guessedLength
 </script>
 
-<main style="width: 100vw; height: 100vh;">
-  <div class="guesspanel">
+<main style="min-h-screen w-screen sm:flex ">
+  <div class="guesspanel h-screen">
     <h1 class="text-lg p-3"> Chicago Street Name Game!</h1>
     <p>Guessed {$guessedLength.toPrecision(5)} of {TOTAL_LENGTH.toPrecision(5)} miles of streets. ({(($guessedLength/TOTAL_LENGTH)*100).toPrecision(5)}%)</p>
     <form on:submit={onSubmit}>
@@ -37,9 +37,4 @@
   main {
     display: flex;
   }
-  .guesspanel {
-    height: 100vh;
-    min-width: 600px;
-  }
-
 </style>
